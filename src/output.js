@@ -1,8 +1,6 @@
-const Output = ()=>{
-    const { result } = this.props
+const Output = (props) => {
     return (
-        <textarea name="outputarea" id="outputarea" cols="100" rows="20">{result}
-</textarea>
+        <textarea name="outputarea" id="outputarea" cols="100" rows="20" readOnly value={props.result}></textarea>
     )
 }
 export default Output;

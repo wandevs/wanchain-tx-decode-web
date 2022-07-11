@@ -1,38 +1,45 @@
 import './App.css';
 import Output from './output';
 import Input from './input';
-import { Component } from 'react'
-import { decode } from 'wanchain-tx-decode'
-
+import {Component} from 'react'
+import {decodeWanRawTran} from 'wanchain-tx-decode'
 
 
 class App extends Component {
-  updateInput = (strRaw)=>{
-    console.log("entering updateInput function......");
-        this.setState(strRaw)
+    state = {rawData: "", decodedData: ""};
+    updateInput = (strRaw) => {
+        //console.log("entering updateInput function......:%s", JSON.stringify(strRaw));
+        this.setState({rawData: strRaw})
     }
 
-    decodeMyTx = ()=>{
-      console.log("entering decodeMyTx.....");
-      console.log("beofore decode",this.state.rawData);
-
-
+    decodeMyTx = () => {
+        let myresult = "";
+        try {
+            // console.log("entering decodeMyTx.....%s:", this.state.rawData);
+            // console.log("before decode", this.state.rawData);
+            // console.log(decodeWanRawTran(this.state.rawData));
+            myresult = JSON.stringify(decodeWanRawTran(this.state.rawData), null, 2).trim();
+        } catch (e) {
+            myresult = e.toString()
+        }
+        this.setState({rawData: this.state.rawData, decodedData: myresult});
     }
-  state = {rawData:"0xf86d820144843b9aca0082520894b78777860637d56543da23312c7865024833f7d188016345785d8a0000802ba0e2539a5d9f056d7095bd19d6b77b850910eeafb71534ebd45159915fab202e91a007484420f3968697974413fc55d1142dc76285d30b1b9231ccb71ed1e720faae"}
-  render() {
-      const {strRaw} = this.state.rawData;
-      return (
-          <div className="App">
-              <h1>wanchain-tx-decode</h1>
-              <Input updateInput={ this.updateInput } />
-              <br/>
-              <input type="submit" value="Decode" onClick={this.decodeMyTx} />
-              <br/>
-              <Output result={ strRaw }/>
-              <br/>
-          </div>
-      );
-  }
+
+    render() {
+        return (
+            <div className="App">
+                <h1>wanchain-tx-decode</h1>
+                <Input callback={this.updateInput}/>
+                <br/>
+                <br/>
+                <input type="submit" value="Decode" onClick={this.decodeMyTx}/>
+                <br/>
+                <br/>
+                <Output result={this.state.decodedData}/>
+                <br/>
+            </div>
+        );
+    }
 }
 
 export default App;
