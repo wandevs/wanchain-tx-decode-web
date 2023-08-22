@@ -3,10 +3,11 @@ import Output from './output';
 import Input from './input';
 import {Component} from 'react'
 import {decodeWanRawTran} from 'wanchain-tx-decode'
+import {decodeAbi} from 'abi-decoder'
 
 
 class App extends Component {
-    state = {rawData: "", decodedData: ""};
+    state = {rawData: "", decodedData: "",abi:"",decodedAbi:""};
     updateInput = (strRaw) => {
         //console.log("entering updateInput function......:%s", JSON.stringify(strRaw));
         this.setState({rawData: strRaw})
@@ -25,6 +26,22 @@ class App extends Component {
         this.setState({rawData: this.state.rawData, decodedData: myresult});
     }
 
+    updateInputAbi = (strRaw) => {
+        //console.log("entering updateInput function......:%s", JSON.stringify(strRaw));
+        this.setState({abi: strRaw})
+    }
+
+    decodeMyABI = () => {
+        let myresult = "";
+        try {
+            // abiDecoder.decodeMethod(testData)
+            myresult = JSON.stringify(decodeAbi.decodeMethod(this.state.abi), null, 2).trim();
+        } catch (e) {
+            myresult = e.toString()
+        }
+        this.setState({abi: this.state.abi, decodedAbi: myresult});
+    }
+
     render() {
         return (
             <div className="App">
@@ -37,6 +54,17 @@ class App extends Component {
                 <br/>
                 <Output result={this.state.decodedData}/>
                 <br/>
+
+                <h1>wanchain-abi-decode</h1>
+                <Input callback={this.updateInputAbi}/>
+                <br/>
+                <br/>
+                <input type="submit" value="DecodeAbi" onClick={this.decodeMyABI}/>
+                <br/>
+                <br/>
+                <Output result={this.state.decodedAbi}/>
+                <br/>
+
             </div>
         );
     }
