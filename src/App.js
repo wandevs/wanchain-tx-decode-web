@@ -14,7 +14,7 @@ class App extends Component {
     state = {rawData: "", decodedData: "",abi:"",decodedAbi:""};
     updateInput = (strRaw) => {
         //console.log("entering updateInput function......:%s", JSON.stringify(strRaw));
-        this.setState({rawData: strRaw})
+        this.setState({rawData: strRaw.trim()})
     }
 
     decodeMyTx = () => {
