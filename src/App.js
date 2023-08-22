@@ -48,7 +48,7 @@ class App extends Component {
 
     render() {
         return (
-            <div className="App">
+            <div className="App" align="center">
                 <h1>wanchain-tx-decode</h1>
                 <Input callback={this.updateInput}/>
                 <br/>
