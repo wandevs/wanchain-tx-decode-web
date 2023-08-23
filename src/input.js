@@ -12,7 +12,8 @@ class Input extends Component {
                 console.log("text changed.");
                 this.change(e.target.value)
             }
-            }> </textarea>
+            }
+            />
         )
     }
 }
