@@ -23,7 +23,7 @@ class App extends Component {
             // console.log("entering decodeMyTx.....%s:", this.state.rawData);
             // console.log("before decode", this.state.rawData);
             // console.log(decodeWanRawTran(this.state.rawData));
-            myresult = JSON.stringify(decodeWanRawTran(this.state.rawData), null, 2).trim();
+            myresult = JSON.stringify(decodeWanRawTran(this.state.rawData.trim()), null, 2).trim();
         } catch (e) {
             myresult = e.toString()
         }
@@ -39,7 +39,7 @@ class App extends Component {
         let myresult = "";
         try {
             // abiDecoder.decodeMethod(testData)
-            myresult = JSON.stringify(decodeAbi.decodeMethod(this.state.abi), null, 2).trim();
+            myresult = JSON.stringify(decodeAbi.decodeMethod(this.state.abi.trim()), null, 2).trim();
         } catch (e) {
             myresult = e.toString()
         }
